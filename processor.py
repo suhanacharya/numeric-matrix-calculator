@@ -17,13 +17,13 @@ def read_order2D():
 def print_matrix2D(matrix, m, n):
     for x in range(m):
         for y in range(n):
-            print(matrix[x][y], end=" ")
+            print(round(matrix[x][y]), end=" ")
         print()
 
 
 def show_menu():
     print("1. Add matrices\n2. Multiply matrix by a constant")
-    print("3. Multiply matrices\n0. Exit")
+    print("3. Multiply matrices\n4. Transpose matrix\n0. Exit")
     print("Your choice: ", end="")
     choice = int(input())
 
@@ -83,6 +83,17 @@ def matrix_multiply():
         print("The operation cannot be performed.")
 
 
+def main_transpose():
+    print("Enter matrix size: ", end=" ")
+    m, n = read_order2D()
+    print("Enter matrix: ")
+    matrix = read_matrix2D(m)
+
+    t_matrix = [[matrix[y][x] for y in range(n)] for x in range(m)]
+
+    print_matrix2D(t_matrix, n, m)
+
+
 def main():
     while True:
         choice = show_menu()
@@ -93,6 +104,18 @@ def main():
             const_to_matrix()
         elif choice == 3:
             matrix_multiply()
+        elif choice == 4:
+            print("1. Main diagonal\n2. Side diagonal")
+            print("3. Vertical line\n4. Horizontal line")
+            ch = int(input())
+            if ch == 1:
+                main_transpose()
+            elif ch == 2:
+                pass
+            elif ch == 3:
+                pass
+            elif ch == 4:
+                pass
         elif choice == 0:
             break
 
