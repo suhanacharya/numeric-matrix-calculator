@@ -5,7 +5,11 @@ class Matrix:
         self.size = size
         pass
 
-    def read_matrix2D(self,):
+    def read_matrix2D(self):
+        """
+        To read matrix from the console input to store in self.matrix
+        Reads one row at a time and splits into array of floats
+        """
         self.matrix = []
         for x in range(self.size[0]):
             row = input().split()
@@ -13,10 +17,20 @@ class Matrix:
             self.matrix.append(row_integer)
 
     def read_order2D(self):
+        """
+        To take size of matrix as a string and assign to self.size list
+        """
         order = input().split(" ")
         self.size = [int(order[0]), int(order[1])]
 
     def print(self, t=0):
+        """
+            Printing matrix on console.
+            Parameter:
+            t - type of output
+                default t = 0 which prints the matrix as a normal list.
+                t = 1 prints the matrix with space and newline like a string
+        """
         if t == 0:
             print(self.matrix)
         elif t == 1:
@@ -26,6 +40,17 @@ class Matrix:
                 print()
 
     def __add__(self, other):
+        """
+            Adds two objects of Matrix class and returns the sum matrix object.
+            sum_matrix is the addition of matrix1 + matrix2
+
+            Parameter:
+                self - the first matrix object to be added
+                other - the other matrix object that has to be added
+
+            returns:
+                a matrix object whose self.matrix is the sum_matrix and self.size is size of added matrix
+        """
         if self.size[0] == other.size[0] and self.size[1] == other.size[1]:
             sum_matrix = [[self.matrix[x][y] + other.matrix[x][y]
                            for y in range(self.size[1])]
@@ -39,6 +64,22 @@ class Matrix:
         return self
 
     def __mul__(self, other):
+        """
+            Supports two types of multiplication.
+            Matrix to matrix multiplication using the matrix rules
+            Matrix and constant multiplication to multiply a constant component wise.
+
+            Parameters:
+                self - the first matrix
+                other - Either another matrix or a constant
+                    if other is Matrix object, then it does matrix to matrix multiplication
+                    if other is a float or an integer, it does matrix to constant multiplication
+
+            returns:
+                the product matrix object after m to m multiplication
+                or
+                the product matrix object after m to c multiplication
+        """
         if type(other) == type(self):
             if self.size[1] == other.size[0]:
                 p_matrix = [[0 for y in range(other.size[1])] for x in range(self.size[0])]
@@ -61,8 +102,17 @@ class Matrix:
             return new_matrix
 
     def main_transpose(self):
+        """
+            To transpose the self.matrix over its main diagonal
+
+            returns:
+                A Matrix object that is the transpose about its main diagonal.
+        """
         t_matrix = [[self.matrix[y][x] for y in range(self.size[1])] for x in range(self.size[0])]
         new_matrix = Matrix(size=[self.size[1], self.size[0]])
         new_matrix.matrix = t_matrix
         return new_matrix
+
+    def side_transpose(self):
+        pass
 
