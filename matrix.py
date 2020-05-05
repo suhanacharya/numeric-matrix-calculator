@@ -161,4 +161,13 @@ class Matrix:
             returns:
                 A matrix object that is reversed about its columns
         """
-        pass
+        t_matrix = []
+
+        for i in range(self.size[0]):
+            t_matrix.append([])
+            for j in range(self.size[1]):
+                t_matrix[i].append(self.matrix[self.size[0] - 1 - i][j])
+
+        new_matrix = Matrix(size=[self.size[0], self.size[1]])
+        new_matrix.matrix = t_matrix
+        return new_matrix
