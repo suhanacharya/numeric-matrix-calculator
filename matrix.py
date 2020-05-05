@@ -142,9 +142,9 @@ class Matrix:
             Usage:
                 Example:
                     If                              After vertical transpose,
-                       matrix = [[1, 2, 3],         The matrix = [[7, 8, 9],
-                                 [4, 5, 6],                       [4, 5, 6],
-                                 [7, 8, 9]]                       [1, 2, 3]]
+                       matrix = [[1, 2, 3],         The matrix = [[3, 2, 1],
+                                 [4, 5, 6],                       [6, 5, 4],
+                                 [7, 8, 9]]                       [9, 8, 7]]
         """
         t_matrix = []
         for i in range(self.size[0]):
@@ -160,6 +160,13 @@ class Matrix:
 
             returns:
                 A matrix object that is reversed about its columns
+
+            Usage:
+                Example:
+                    If                              After Horizontal transpose,
+                       matrix = [[1, 2, 3],         The matrix = [[7, 8, 9],
+                                 [4, 5, 6],                       [4, 5, 6],
+                                 [7, 8, 9]]                       [1, 2, 3]]
         """
         t_matrix = []
 
