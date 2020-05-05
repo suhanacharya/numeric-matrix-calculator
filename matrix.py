@@ -13,7 +13,7 @@ class Matrix:
         self.matrix = []
         for x in range(self.size[0]):
             row = input().split()
-            row_integer = [round(float(num)) for num in row]
+            row_integer = [float(num) for num in row]
             self.matrix.append(row_integer)
 
     def read_order2D(self):
@@ -36,7 +36,7 @@ class Matrix:
         elif t == 1:
             for x in range(self.size[0]):
                 for y in range(self.size[1]):
-                    print(round(self.matrix[x][y]), end=" ")
+                    print(self.matrix[x][y], end=" ")
                 print()
 
     def __add__(self, other):
@@ -92,7 +92,7 @@ class Matrix:
                 return new_matrix
             else:
                 print("The operation cannot be performed")
-            return self
+            return -1
 
         else:
             c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.size[1])]
