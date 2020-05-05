@@ -1,3 +1,5 @@
+from matrix import Matrix
+
 def read_matrix2D(m):
     matrix = []
     for x in range(m):

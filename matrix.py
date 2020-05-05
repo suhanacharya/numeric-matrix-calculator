@@ -13,7 +13,7 @@ class Matrix:
         self.matrix = []
         for x in range(self.size[0]):
             row = input().split()
-            row_integer = [float(num) for num in row]
+            row_integer = [round(float(num)) for num in row]
             self.matrix.append(row_integer)
 
     def read_order2D(self):
@@ -114,5 +114,22 @@ class Matrix:
         return new_matrix
 
     def side_transpose(self):
-        pass
+        """
+            To transpose matrix over its secondary/ side diagonal
+
+            returns:
+                A matrix object that is transpose about its side diagonal
+        """
+        t_matrix = []
+        counter_row = 0
+        for i in reversed(range(self.size[0])):
+            t_matrix.append([])
+            for j in reversed(range(self.size[1])):
+                t_matrix[counter_row].append(self.matrix[j][i])
+            counter_row += 1
+
+        new_matrix = Matrix(size=[self.size[1], self.size[0]])
+        new_matrix.matrix = t_matrix
+        return new_matrix
+
 
