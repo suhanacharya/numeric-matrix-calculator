@@ -132,4 +132,33 @@ class Matrix:
         new_matrix.matrix = t_matrix
         return new_matrix
 
+    def vertical_transpose(self):
+        """
+            To transpose the matrix over its 'vertical axis'
 
+            returns:
+                A matrix object that is reversed about its rows
+
+            Usage:
+                Example:
+                    If                              After vertical transpose,
+                       matrix = [[1, 2, 3],         The matrix = [[7, 8, 9],
+                                 [4, 5, 6],                       [4, 5, 6],
+                                 [7, 8, 9]]                       [1, 2, 3]]
+        """
+        t_matrix = []
+        for i in range(self.size[0]):
+            t_matrix.append(list(reversed(self.matrix[i])))
+
+        new_matrix = Matrix(size=[self.size[0], self.size[1]])
+        new_matrix.matrix = t_matrix
+        return new_matrix
+
+    def horizontal_transpose(self):
+        """
+            To transpose the matrix over its 'horizontal axis'
+
+            returns:
+                A matrix object that is reversed about its columns
+        """
+        pass
