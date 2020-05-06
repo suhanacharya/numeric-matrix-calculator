@@ -13,7 +13,7 @@ class Matrix:
         self.matrix = []
         for x in range(self.size[0]):
             row = input().split()
-            row_integer = [float(num) for num in row]
+            row_integer = [(float(num)) for num in row]
             self.matrix.append(row_integer)
 
     def read_order2D(self):
@@ -36,7 +36,7 @@ class Matrix:
         elif t == 1:
             for x in range(self.size[0]):
                 for y in range(self.size[1]):
-                    print(self.matrix[x][y], end=" ")
+                    print(round(self.matrix[x][y]), end=" ")
                 print()
 
     def __add__(self, other):
@@ -178,3 +178,23 @@ class Matrix:
         new_matrix = Matrix(size=[self.size[0], self.size[1]])
         new_matrix.matrix = t_matrix
         return new_matrix
+
+    def minor(self):
+
+    def cofactor_matrix(self):
+        pass
+
+    def det(self):
+        """
+            To find the determinant of the matrix.
+
+            returns:
+                Numerical value that is the determinant of the matrix
+
+        """
+        det = 0
+        if self.size[0] == self.size[1]:
+
+            pass
+        else:
+            return "error"
