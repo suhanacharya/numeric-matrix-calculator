@@ -1,7 +1,7 @@
 class Matrix:
 
     def __init__(self, size=[1, 1]):
-        self.matrix = None
+        self.matrix = []
         self.size = size
         pass
 
@@ -180,6 +180,7 @@ class Matrix:
         return new_matrix
 
     def minor(self):
+        pass
 
     def cofactor_matrix(self):
         pass
@@ -198,3 +199,35 @@ class Matrix:
             pass
         else:
             return "error"
+
+    def fill(self, number=0):
+        """
+            Fills a matrix with the given number.
+
+            returns:
+                A matrix object that is filled with the given number.
+        """
+        m = []
+        for x in range(self.size[0]):
+            m.append([])
+            for y in range(self.size[1]):
+                m[x].append(number)
+
+        new_matrix = Matrix(size=[self.size[0], self.size[1]])
+        new_matrix.matrix = m
+        return new_matrix
+
+    def generate_matrix(self, size: list, input_string: str):
+        """
+            To generate a 2D matrix from the space seperated input string of numbers
+
+            returns:
+                nothing, but its stores the generated matrix in the self.matrix list
+        """
+        input_list = input_string.split(" ")
+        counter = 0
+        for x in range(size[0]):
+            self.matrix.append([])
+            for y in range(size[1]):
+                self.matrix[x].append(round(float(input_list[counter])))
+                counter = counter + 1
