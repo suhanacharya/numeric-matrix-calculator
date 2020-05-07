@@ -63,7 +63,7 @@ class Matrix:
 
         return self
 
-    def __mul__(self, other):
+    def __mul__(self, other, mult_type="matrix_multiplication"):
         """
             Supports two types of multiplication.
             Matrix to matrix multiplication using the matrix rules
@@ -74,32 +74,48 @@ class Matrix:
                 other - Either another matrix or a constant
                     if other is Matrix object, then it does matrix to matrix multiplication
                     if other is a float or an integer, it does matrix to constant multiplication
+                mult_type -
+                    matrix_multiplication - Indicates if the multiplication is using rules of matrix multiplication
+                    component_wise - Indicates if the multiplication is done component_wise
 
             returns:
-                the product matrix object after m to m multiplication
+                the product matrix object after m to m multiplication.
                 or
-                the product matrix object after m to c multiplication
+                the product matrix object after m to c multiplication.
+                or
+                the product matrix object after component_wise multiplication.
         """
-        if type(other) == type(self):
-            if self.size[1] == other.size[0]:
-                p_matrix = [[0 for y in range(other.size[1])] for x in range(self.size[0])]
-                for x in range(self.size[0]):
-                    for y in range(other.size[1]):
-                        for k in range(other.size[0]):
-                            p_matrix[x][y] += self.matrix[x][k] * other.matrix[k][y]
-                new_matrix = Matrix(size=[self.size[0], other.size[1]])
+        if mult_type == "matrix_multiplication":
+            if type(other) == type(self):
+                if self.size[1] == other.size[0]:
+                    p_matrix = [[0 for y in range(other.size[1])] for x in range(self.size[0])]
+                    for x in range(self.size[0]):
+                        for y in range(other.size[1]):
+                            for k in range(other.size[0]):
+                                p_matrix[x][y] += self.matrix[x][k] * other.matrix[k][y]
+                    new_matrix = Matrix(size=[self.size[0], other.size[1]])
+                    new_matrix.matrix = p_matrix
+                    return new_matrix
+                else:
+                    print("The operation cannot be performed")
+                return -1
+
+            else:
+                c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.size[1])]
+                            for x in range(self.size[0])]
+                new_matrix = Matrix(size=[self.size[0], self.size[1]])
+                new_matrix.matrix = c_matrix
+                return new_matrix
+        elif mult_type == "component_wise":
+            if self.size[0] == other.size[0] and self.size[1] == other.size[1]:
+                p_matrix = [[self.matrix[x][y] * other.matrix[x][y] for y in range(self.size[1])]
+                            for x in range(self.size[0])]
+
+                new_matrix = Matrix(size=[self.size[0], self.size[1]])
                 new_matrix.matrix = p_matrix
                 return new_matrix
             else:
-                print("The operation cannot be performed")
-            return -1
-
-        else:
-            c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.size[1])]
-                        for x in range(self.size[0])]
-            new_matrix = Matrix(size=[self.size[0], self.size[1]])
-            new_matrix.matrix = c_matrix
-            return new_matrix
+                return "error"
 
     def main_transpose(self):
         """
@@ -219,7 +235,7 @@ class Matrix:
 
     def generate_matrix(self, size: list, input_string: str):
         """
-            To generate a 2D matrix from the space seperated input string of numbers
+            To generate a 2D matrix from the space separated input string of numbers
 
             returns:
                 nothing, but its stores the generated matrix in the self.matrix list
