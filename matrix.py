@@ -1,8 +1,8 @@
 class Matrix:
 
-    def __init__(self, size=[1, 1]):
+    def __init__(self, shape=[1, 1]):
         self.matrix = []
-        self.size = size
+        self.shape = shape
         pass
 
     def read_matrix2D(self):
@@ -11,17 +11,17 @@ class Matrix:
         Reads one row at a time and splits into array of floats
         """
         self.matrix = []
-        for x in range(self.size[0]):
+        for x in range(self.shape[0]):
             row = input().split()
             row_integer = [(float(num)) for num in row]
             self.matrix.append(row_integer)
 
     def read_order2D(self):
         """
-        To take size of matrix as a string and assign to self.size list
+        To take shape of matrix as a string and assign to self.shape list
         """
         order = input().split(" ")
-        self.size = [int(order[0]), int(order[1])]
+        self.shape = [int(order[0]), int(order[1])]
 
     def print(self, t=0):
         """
@@ -34,8 +34,8 @@ class Matrix:
         if t == 0:
             print(self.matrix)
         elif t == 1:
-            for x in range(self.size[0]):
-                for y in range(self.size[1]):
+            for x in range(self.shape[0]):
+                for y in range(self.shape[1]):
                     print(round(self.matrix[x][y]), end=" ")
                 print()
 
@@ -49,13 +49,13 @@ class Matrix:
                 other - the other matrix object that has to be added
 
             returns:
-                a matrix object whose self.matrix is the sum_matrix and self.size is size of added matrix
+                a matrix object whose self.matrix is the sum_matrix and self.shape is shape of added matrix
         """
-        if self.size[0] == other.size[0] and self.size[1] == other.size[1]:
+        if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
             sum_matrix = [[self.matrix[x][y] + other.matrix[x][y]
-                           for y in range(self.size[1])]
-                          for x in range(self.size[0])]
-            new_matrix = Matrix(size=[self.size[0], self.size[1]])
+                           for y in range(self.shape[1])]
+                          for x in range(self.shape[0])]
+            new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
             new_matrix.matrix = sum_matrix
             return new_matrix
         else:
@@ -87,13 +87,13 @@ class Matrix:
         """
         if mult_type == "matrix_multiplication":
             if type(other) == type(self):
-                if self.size[1] == other.size[0]:
-                    p_matrix = [[0 for y in range(other.size[1])] for x in range(self.size[0])]
-                    for x in range(self.size[0]):
-                        for y in range(other.size[1]):
-                            for k in range(other.size[0]):
+                if self.shape[1] == other.shape[0]:
+                    p_matrix = [[0 for y in range(other.shape[1])] for x in range(self.shape[0])]
+                    for x in range(self.shape[0]):
+                        for y in range(other.shape[1]):
+                            for k in range(other.shape[0]):
                                 p_matrix[x][y] += self.matrix[x][k] * other.matrix[k][y]
-                    new_matrix = Matrix(size=[self.size[0], other.size[1]])
+                    new_matrix = Matrix(shape=[self.shape[0], other.shape[1]])
                     new_matrix.matrix = p_matrix
                     return new_matrix
                 else:
@@ -101,17 +101,17 @@ class Matrix:
                 return -1
 
             else:
-                c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.size[1])]
-                            for x in range(self.size[0])]
-                new_matrix = Matrix(size=[self.size[0], self.size[1]])
+                c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.shape[1])]
+                            for x in range(self.shape[0])]
+                new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
                 new_matrix.matrix = c_matrix
                 return new_matrix
         elif mult_type == "component_wise":
-            if self.size[0] == other.size[0] and self.size[1] == other.size[1]:
-                p_matrix = [[self.matrix[x][y] * other.matrix[x][y] for y in range(self.size[1])]
-                            for x in range(self.size[0])]
+            if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
+                p_matrix = [[self.matrix[x][y] * other.matrix[x][y] for y in range(self.shape[1])]
+                            for x in range(self.shape[0])]
 
-                new_matrix = Matrix(size=[self.size[0], self.size[1]])
+                new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
                 new_matrix.matrix = p_matrix
                 return new_matrix
             else:
@@ -124,8 +124,8 @@ class Matrix:
             returns:
                 A Matrix object that is the transpose about its main diagonal.
         """
-        t_matrix = [[self.matrix[y][x] for y in range(self.size[1])] for x in range(self.size[0])]
-        new_matrix = Matrix(size=[self.size[1], self.size[0]])
+        t_matrix = [[self.matrix[y][x] for y in range(self.shape[1])] for x in range(self.shape[0])]
+        new_matrix = Matrix(shape=[self.shape[1], self.shape[0]])
         new_matrix.matrix = t_matrix
         return new_matrix
 
@@ -138,13 +138,13 @@ class Matrix:
         """
         t_matrix = []
         counter_row = 0
-        for i in reversed(range(self.size[0])):
+        for i in reversed(range(self.shape[0])):
             t_matrix.append([])
-            for j in reversed(range(self.size[1])):
+            for j in reversed(range(self.shape[1])):
                 t_matrix[counter_row].append(self.matrix[j][i])
             counter_row += 1
 
-        new_matrix = Matrix(size=[self.size[1], self.size[0]])
+        new_matrix = Matrix(shape=[self.shape[1], self.shape[0]])
         new_matrix.matrix = t_matrix
         return new_matrix
 
@@ -163,10 +163,10 @@ class Matrix:
                                  [7, 8, 9]]                       [9, 8, 7]]
         """
         t_matrix = []
-        for i in range(self.size[0]):
+        for i in range(self.shape[0]):
             t_matrix.append(list(reversed(self.matrix[i])))
 
-        new_matrix = Matrix(size=[self.size[0], self.size[1]])
+        new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
         new_matrix.matrix = t_matrix
         return new_matrix
 
@@ -186,12 +186,12 @@ class Matrix:
         """
         t_matrix = []
 
-        for i in range(self.size[0]):
+        for i in range(self.shape[0]):
             t_matrix.append([])
-            for j in range(self.size[1]):
-                t_matrix[i].append(self.matrix[self.size[0] - 1 - i][j])
+            for j in range(self.shape[1]):
+                t_matrix[i].append(self.matrix[self.shape[0] - 1 - i][j])
 
-        new_matrix = Matrix(size=[self.size[0], self.size[1]])
+        new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
         new_matrix.matrix = t_matrix
         return new_matrix
 
@@ -210,7 +210,7 @@ class Matrix:
 
         """
         det = 0
-        if self.size[0] == self.size[1]:
+        if self.shape[0] == self.shape[1]:
 
             pass
         else:
@@ -224,16 +224,16 @@ class Matrix:
                 A matrix object that is filled with the given number.
         """
         m = []
-        for x in range(self.size[0]):
+        for x in range(self.shape[0]):
             m.append([])
-            for y in range(self.size[1]):
+            for y in range(self.shape[1]):
                 m[x].append(number)
 
-        new_matrix = Matrix(size=[self.size[0], self.size[1]])
+        new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
         new_matrix.matrix = m
         return new_matrix
 
-    def generate_matrix(self, size: list, input_string: str):
+    def generate_matrix(self, shape: list, input_string: str):
         """
             To generate a 2D matrix from the space separated input string of numbers
 
@@ -242,8 +242,22 @@ class Matrix:
         """
         input_list = input_string.split(" ")
         counter = 0
-        for x in range(size[0]):
+        for x in range(shape[0]):
             self.matrix.append([])
-            for y in range(size[1]):
+            for y in range(shape[1]):
                 self.matrix[x].append(round(float(input_list[counter])))
                 counter = counter + 1
+
+    def identity(self, size: int):
+        i_matrix = []
+        for x in range(size):
+            i_matrix.append([])
+            for y in range(size):
+                if x == y:
+                    i_matrix[x].append(1)
+                else:
+                    i_matrix[x].append(0)
+        new_matrix = Matrix(shape=[size, size])
+        new_matrix.matrix = i_matrix
+        return new_matrix
+
