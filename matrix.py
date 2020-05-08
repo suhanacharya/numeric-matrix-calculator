@@ -1,6 +1,6 @@
 class Matrix:
 
-    def __init__(self, shape=[1, 1]):
+    def __init__(self, shape=[0, 0]):
         self.matrix = []
         self.shape = shape
         pass
@@ -46,14 +46,18 @@ class Matrix:
 
             Parameter:
                 self - the first matrix object to be added
-                other - the other matrix object that has to be added
+                other -
+                    - the other matrix object that has to be added
+                    - an integer or float to add component-wise
 
             returns:
                 a matrix object whose self.matrix is the sum_matrix and self.shape is shape of added matrix
         """
         if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
-            sum_matrix = [[self.matrix[x][y] + other.matrix[x][y]
-                           for y in range(self.shape[1])]
+            print(self.shape[0], self.shape[1])
+            print(other.shape[0], other.shape[1])
+
+            sum_matrix = [[self.matrix[x][y] + other.matrix[x][y] for y in range(self.shape[1])]
                           for x in range(self.shape[0])]
             new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
             new_matrix.matrix = sum_matrix
@@ -63,7 +67,33 @@ class Matrix:
 
         return self
 
-    def __mul__(self, other, mult_type="matrix_multiplication"):
+    def __sub__(self, other):
+        """
+                    Adds two objects of Matrix class and returns the sum matrix object.
+                    sum_matrix is the addition of matrix1 + matrix2
+
+                    Parameter:
+                        self - the first matrix object to be added
+                        other -
+                            - the other matrix object that has to be added
+                            - an integer or float to add component-wise
+
+                    returns:
+                        a matrix object whose self.matrix is the sum_matrix and self.shape is shape of added matrix
+                """
+        print(type(other))
+        if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
+            diff_matrix = [[self.matrix[x][y] - other.matrix[x][y] for y in range(self.shape[1])]
+                           for x in range(self.shape[0])]
+            new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
+            new_matrix.matrix = diff_matrix
+            return new_matrix
+        else:
+            print("The operation cannot be performed.")
+
+        return self
+
+    def __mul__(self, other, multiplication_type="matrix_multiplication"):
         """
             Supports two types of multiplication.
             Matrix to matrix multiplication using the matrix rules
@@ -74,7 +104,7 @@ class Matrix:
                 other - Either another matrix or a constant
                     if other is Matrix object, then it does matrix to matrix multiplication
                     if other is a float or an integer, it does matrix to constant multiplication
-                mult_type -
+                multiplication_type -
                     matrix_multiplication - Indicates if the multiplication is using rules of matrix multiplication
                     component_wise - Indicates if the multiplication is done component_wise
 
@@ -82,40 +112,27 @@ class Matrix:
                 the product matrix object after m to m multiplication.
                 or
                 the product matrix object after m to c multiplication.
-                or
-                the product matrix object after component_wise multiplication.
         """
-        if mult_type == "matrix_multiplication":
-            if type(other) == type(self):
-                if self.shape[1] == other.shape[0]:
-                    p_matrix = [[0 for y in range(other.shape[1])] for x in range(self.shape[0])]
-                    for x in range(self.shape[0]):
-                        for y in range(other.shape[1]):
-                            for k in range(other.shape[0]):
-                                p_matrix[x][y] += self.matrix[x][k] * other.matrix[k][y]
-                    new_matrix = Matrix(shape=[self.shape[0], other.shape[1]])
-                    new_matrix.matrix = p_matrix
-                    return new_matrix
-                else:
-                    print("The operation cannot be performed")
-                return -1
-
-            else:
-                c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.shape[1])]
-                            for x in range(self.shape[0])]
-                new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
-                new_matrix.matrix = c_matrix
-                return new_matrix
-        elif mult_type == "component_wise":
-            if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
-                p_matrix = [[self.matrix[x][y] * other.matrix[x][y] for y in range(self.shape[1])]
-                            for x in range(self.shape[0])]
-
-                new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
+        if type(other) == type(self):
+            if self.shape[1] == other.shape[0]:
+                p_matrix = [[0 for y in range(other.shape[1])] for x in range(self.shape[0])]
+                for x in range(self.shape[0]):
+                    for y in range(other.shape[1]):
+                        for k in range(other.shape[0]):
+                            p_matrix[x][y] += self.matrix[x][k] * other.matrix[k][y]
+                new_matrix = Matrix(shape=[self.shape[0], other.shape[1]])
                 new_matrix.matrix = p_matrix
                 return new_matrix
             else:
-                return "error"
+                print("The operation cannot be performed")
+            return -1
+
+        else:
+            c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.shape[1])]
+                        for x in range(self.shape[0])]
+            new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
+            new_matrix.matrix = c_matrix
+            return new_matrix
 
     def main_transpose(self):
         """
@@ -240,6 +257,8 @@ class Matrix:
             returns:
                 nothing, but its stores the generated matrix in the self.matrix list
         """
+        self.shape[0] = shape[0]
+        self.shape[1] = shape[1]
         input_list = input_string.split(" ")
         counter = 0
         for x in range(shape[0]):
@@ -261,3 +280,6 @@ class Matrix:
         new_matrix.matrix = i_matrix
         return new_matrix
 
+
+if __name__ == "__main__":
+    print("This module cannot run as main")
