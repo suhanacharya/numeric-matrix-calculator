@@ -283,6 +283,17 @@ class Matrix:
         return new_matrix
 
     def generate_random(self, shape: list, val_range: list, seed=datetime.now()):
+        """
+            To generate a matrix with random integers
+
+            Parameters:
+                shape - [x, y] is a list with x indicating rows, y indicating columns
+                val_range - [a, b] is a list with a indicating lower end, b indicating upper end of the range
+                seed - its an integer seed value for random generator if you want to set a particular random matrix
+
+            returns:
+                nothing - It modifies the existing self.matrix and doesnt return it.
+        """
         random.seed(seed)
         self.shape[0] = shape[0]
         self.shape[1] = shape[1]
