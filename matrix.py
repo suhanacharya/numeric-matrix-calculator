@@ -1,3 +1,7 @@
+import random
+from datetime import datetime
+
+
 class Matrix:
 
     def __init__(self, shape=[0, 0]):
@@ -54,8 +58,6 @@ class Matrix:
                 a matrix object whose self.matrix is the sum_matrix and self.shape is shape of added matrix
         """
         if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
-            print(self.shape[0], self.shape[1])
-            print(other.shape[0], other.shape[1])
 
             sum_matrix = [[self.matrix[x][y] + other.matrix[x][y] for y in range(self.shape[1])]
                           for x in range(self.shape[0])]
@@ -279,6 +281,16 @@ class Matrix:
         new_matrix = Matrix(shape=[size, size])
         new_matrix.matrix = i_matrix
         return new_matrix
+
+    def generate_random(self, shape: list, val_range: list, seed=datetime.now()):
+        random.seed(seed)
+        self.shape[0] = shape[0]
+        self.shape[1] = shape[1]
+
+        for x in range(shape[0]):
+            self.matrix.append([])
+            for y in range(shape[1]):
+                self.matrix[x].append(random.randint(val_range[0], val_range[1]))
 
 
 if __name__ == "__main__":
