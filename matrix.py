@@ -270,6 +270,16 @@ class Matrix:
                 counter = counter + 1
 
     def identity(self, size: int):
+        """
+            To generate and return an identity matrix of a given size
+
+            Parameters:
+                size - an integer to indicate the size of the identity matrix
+
+            returns:
+                A Matrix object with an identity matrix of the given size
+
+        """
         i_matrix = []
         for x in range(size):
             i_matrix.append([])
