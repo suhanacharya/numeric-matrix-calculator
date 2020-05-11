@@ -127,7 +127,7 @@ class Matrix:
                 return new_matrix
             else:
                 print("The operation cannot be performed")
-            return -1
+            return None
 
         else:
             c_matrix = [[round(self.matrix[x][y] * other) for y in range(self.shape[1])]
@@ -135,6 +135,18 @@ class Matrix:
             new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
             new_matrix.matrix = c_matrix
             return new_matrix
+
+    def __truediv__(self, other):
+        if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
+            d_matrix = [[round(float(self.matrix[x][y]) / float(other.matrix[x][y])) for y in range(self.shape[1])]
+                        for x in range(self.shape[0])]
+            new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
+            new_matrix.matrix = d_matrix
+            return new_matrix
+        else:
+            print("The operation cannot be performed!")
+        return None
+
 
     def main_transpose(self):
         """
