@@ -137,6 +137,12 @@ class Matrix:
             return new_matrix
 
     def __truediv__(self, other):
+        """
+            To divide two matrices component wise.
+
+            returns:
+                A matrix object whose matrix is the component-wise division of two matrices.
+        """
         if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
             d_matrix = [[round(float(self.matrix[x][y]) / float(other.matrix[x][y])) for y in range(self.shape[1])]
                         for x in range(self.shape[0])]
