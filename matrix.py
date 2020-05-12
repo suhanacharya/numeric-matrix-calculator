@@ -40,7 +40,7 @@ class Matrix:
         elif t == 1:
             for x in range(self.shape[0]):
                 for y in range(self.shape[1]):
-                    print(round(self.matrix[x][y]), end=" ")
+                    print(round(self.matrix[x][y], 4), end=" ")
                 print()
 
     def __add__(self, other):
@@ -144,7 +144,7 @@ class Matrix:
                 A matrix object whose matrix is the component-wise division of two matrices.
         """
         if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
-            d_matrix = [[round(float(self.matrix[x][y]) / float(other.matrix[x][y])) for y in range(self.shape[1])]
+            d_matrix = [[round(float(self.matrix[x][y]) / float(other.matrix[x][y]), 4) for y in range(self.shape[1])]
                         for x in range(self.shape[0])]
             new_matrix = Matrix(shape=[self.shape[0], self.shape[1]])
             new_matrix.matrix = d_matrix
@@ -152,7 +152,6 @@ class Matrix:
         else:
             print("The operation cannot be performed!")
         return None
-
 
     def main_transpose(self):
         """
@@ -310,7 +309,7 @@ class Matrix:
         new_matrix.matrix = i_matrix
         return new_matrix
 
-    def generate_random(self, shape: list, val_range: list, seed=datetime.now()):
+    def generate_random(self, shape: list, val_range: list, dtype="float", seed=datetime.now()):
         """
             To generate a matrix with random integers
 
@@ -329,7 +328,12 @@ class Matrix:
         for x in range(shape[0]):
             self.matrix.append([])
             for y in range(shape[1]):
-                self.matrix[x].append(random.randint(val_range[0], val_range[1]))
+                # self.matrix[x].append(random.randint(val_range[0], val_range[1]) + random.random() if dtype == "float"
+                #                       else random.randint(val_range[0], val_range[1]))
+                if dtype == "float":
+                    self.matrix[x].append(float(random.randint(val_range[0], val_range[1]) + round(random.random(), 4)))
+                elif dtype == "int":
+                    self.matrix[x].append(random.randint(val_range[0], val_range[1]))
 
 
 if __name__ == "__main__":
