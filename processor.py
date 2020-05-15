@@ -185,11 +185,36 @@ class Matrix:
 
 def show_menu():
     print("1. Add matrices\n2. Multiply matrix by a constant")
-    print("3. Multiply matrices\n4. Transpose matrix\n0. Exit")
+    print("3. Multiply matrices\n4. Transpose matrix\n5. Calculate a determinant\n0. Exit")
     print("Your choice: ", end="")
     choice = int(input())
 
     return choice
+
+
+def calculate_determinant(a):
+    if len(a) == 1:
+        return a[0][0]
+    if len(a) == 2:
+        return a[0][0] * a[1][1] - a[0][1] * a[1][0]
+    else:
+        i = 0
+        d = 0
+        for j in range(len(a[i])):
+            d += (-1) ** (i + 1 + j + 1) * a[i][j] * calculate_determinant(minor(a, i, j))
+        return d
+
+
+def minor(a, k, l):
+    m = []
+    for i in range(len(a)):
+        if i != k:
+            v = []
+            for j in range(len(a[0])):
+                if j != l:
+                    v.append(a[i][j])
+            m.append(v)
+    return m
 
 
 def main():
@@ -269,6 +294,14 @@ def main():
                 matrix_2 = matrix_1.horizontal_transpose()
                 print("The result is: ")
                 matrix_2.print(t=1)
+
+        elif choice == 5:
+            matrix_1 = Matrix()
+            print("Enter matrix size: ", end=" ")
+            matrix_1.read_order2D()
+            matrix_1.read_matrix2D()
+            det = calculate_determinant(matrix_1.matrix)
+            print("The result is:\n" + str(det))
 
         elif choice == 0:
             break
