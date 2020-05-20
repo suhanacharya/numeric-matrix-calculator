@@ -37,4 +37,24 @@ matrix.py consists of a Matrix Class provides several functionality that are ado
         
 <hr>
 
-- #### 
+- #### Matrix.print()
+
+        def print(self, t=0):
+        """
+            Printing matrix on console.
+            Parameter:
+            t - type of output
+                default t = 0 which prints the matrix as a normal list.
+                t = 1 prints the matrix with space and newline like a string
+        """
+        
+    Usage: Two ways to use the print() method.
+    
+    - To print matrix as a list form:
+        
+            my_matrix.print()
+    - To print matrix as rows and columns with space and new-line:
+    
+            my_matrix.print(t=1)
+        
+<hr>
