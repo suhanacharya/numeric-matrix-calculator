@@ -71,19 +71,19 @@ class Matrix:
 
     def __sub__(self, other):
         """
-                    Adds two objects of Matrix class and returns the sum matrix object.
-                    sum_matrix is the addition of matrix1 + matrix2
+            Subtracts two objects of Matrix class and returns the difference matrix object.
+            diff_matrix is the addition of matrix1 + matrix2
 
-                    Parameter:
-                        self - the first matrix object to be added
-                        other -
-                            - the other matrix object that has to be added
-                            - an integer or float to add component-wise
+            Parameter:
+                self - the first matrix object to be diff
+                other -
+                    - the other matrix object that has to be added
+                    - an integer or float to add component-wise
 
-                    returns:
-                        a matrix object whose self.matrix is the sum_matrix and self.shape is shape of added matrix
-                """
-        print(type(other))
+            returns:
+                a matrix object whose self.matrix is the diff_matrix and self.shape is shape of added matrix
+        """
+        # print(type(other))
         if self.shape[0] == other.shape[0] and self.shape[1] == other.shape[1]:
             diff_matrix = [[self.matrix[x][y] - other.matrix[x][y] for y in range(self.shape[1])]
                            for x in range(self.shape[0])]
