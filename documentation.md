@@ -101,4 +101,30 @@ matrix.py consists of a Matrix Class provides several functionality that are ado
 		
 		my_matrix = my_matrix1 - my_matrix2
 	
+- #### Matrix.\_\_mul__()
+
+        """
+            Supports two types of multiplication.
+            Matrix to matrix multiplication using the matrix rules
+            Matrix and constant multiplication to multiply a constant component wise.
+
+            Parameters:
+                self - the first matrix
+                other - Either another matrix or a constant
+                    if other is Matrix object, then it does matrix to matrix multiplication
+                    if other is a float or an integer, it does matrix to constant multiplication
+                multiplication_type -
+                    matrix_multiplication - Indicates if the multiplication is using rules of matrix multiplication
+                    component_wise - Indicates if the multiplication is done component_wise
+
+            returns:
+                the product matrix object after m to m multiplication.
+                or
+                the product matrix object after m to c multiplication.
+        """
+    
+    Usage:
+    
+        my_matrix = my_matrix1 * my_matrix2
+      
 	
